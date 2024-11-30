@@ -1,0 +1,211 @@
+
+ SQL Query Using Different Joins
+ 1. **Inner Join**
+The `INNER JOIN` returns rows where there is a match in both tables. If there is no match, those rows will not be included in the result.
+
+
+SELECT users.id, users.name, orders.order_id, orders.product_name
+FROM users
+INNER JOIN orders
+ON users.id = orders.user_id;
+
+
+2. **Left Join (Left Outer Join)**
+The `LEFT JOIN` (or `LEFT OUTER JOIN`) returns all rows from the left table (`users` in this case) and the matched rows from the right table (`orders`). If no match is found, the result is `NULL` for the right table’s columns.
+
+
+SELECT users.id, users.name, orders.order_id, orders.product_name
+FROM users
+LEFT JOIN orders
+ON users.id = orders.user_id;
+
+3. **Right Join (Right Outer Join)**
+The `RIGHT JOIN` (or `RIGHT OUTER JOIN`) returns all rows from the right table (`orders` in this case) and the matched rows from the left table (`users`). If no match is found, the result is `NULL` for the left table’s columns.
+
+
+SELECT users.id, users.name, orders.order_id, orders.product_name
+FROM users
+RIGHT JOIN orders
+ON users.id = orders.user_id;
+
+4. **Full Outer Join**
+
+SELECT users.id, users.name, orders.order_id, orders.product_name
+FROM users
+FULL OUTER JOIN orders
+ON users.id = orders.user_id;
+
+5. **Self Join**
+A `SELF JOIN` is a join where a table is joined with itself. This is useful for hierarchical data (e.g., employees and managers).
+
+
+SELECT e1.id AS EmployeeID, e1.name AS EmployeeName, e2.name AS ManagerName
+FROM employees e1
+LEFT JOIN employees e2
+ON e1.manager_id = e2.id;
+
+### Example Data
+
+#### `users` Table:
+
+| id  | name      |
+| --- | --------- |
+| 1   | John Doe  |
+| 2   | Jane Smith|
+| 3   | Sam Brown |
+
+#### `orders` Table:
+
+| order_id | user_id | product_name  |
+| -------- | ------- | ------------- |
+| 101      | 1       | Laptop        |
+| 102      | 1       | Mouse         |
+| 103      | 2       | Keyboard      |
+| 104      | 4       | Monitor       |
+
+### Example Results
+
+#### Inner Join:
+This will return only users who have made orders (John and Jane).
+
+| id  | name      | order_id | product_name  |
+| --- | --------- | -------- | ------------- |
+| 1   | John Doe  | 101      | Laptop        |
+| 1   | John Doe  | 102      | Mouse         |
+| 2   | Jane Smith| 103      | Keyboard      |
+
+#### Left Join:
+This will return all users, even those who haven't made any orders (Sam Brown will have `NULL` for order details).
+
+| id  | name      | order_id | product_name  |
+| --- | --------- | -------- | ------------- |
+| 1   | John Doe  | 101      | Laptop        |
+| 1   | John Doe  | 102      | Mouse         |
+| 2   | Jane Smith| 103      | Keyboard      |
+| 3   | Sam Brown | NULL     | NULL          |
+
+#### Right Join:
+This will return all orders, including the one placed by the non-existent user with `user_id = 4`.
+
+| id  | name      | order_id | product_name  |
+| --- | --------- | -------- | ------------- |
+| 1   | John Doe  | 101      | Laptop        |
+| 1   | John Doe  | 102      | Mouse         |
+| 2   | Jane Smith| 103      | Keyboard      |
+| NULL| NULL      | 104      | Monitor       |
+
+#### Full Outer Join:
+This will return all users and all orders, with `NULL` for unmatched rows.
+
+| id  | name      | order_id | product_name  |
+| --- | --------- | -------- | ------------- |
+| 1   | John Doe  | 101      | Laptop        |
+| 1   | John Doe  | 102      | Mouse         |
+| 2   | Jane Smith| 103      | Keyboard      |
+| 3   | Sam Brown | NULL     | NULL          |
+| NULL| NULL      | 104      | Monitor       |
+
+// Using let
+let x = 5;
+let y = 10;
+let sum = x + y;
+let difference = y - x;
+let product = x * y;
+let quotient = y / x;
+
+console.log(`Using let:`);
+console.log(`Sum: ${sum}`);
+console.log(`Difference: ${difference}`);
+console.log(`Product: ${product}`);
+console.log(`Quotient: ${quotient}`);
+
+JAVA SCRIPT QUESTIONS
+1
+var a = 8;
+var b = 4;
+var modulus = a % b;
+var exponentiation = Math.pow(a, b);
+
+console.log(`Using var:`);
+console.log(`Modulus: ${modulus}`);
+console.log(`Exponentiation: ${exponentiation}`);
+
+
+const pi = 3.14159;
+const radius = 7;
+const area = pi * Math.pow(radius, 2);
+
+console.log(`Using const:`);
+console.log(`Area of circle with radius 7: ${area}`);
+
+
+-----------------------------------------------
+2 
+function customMap(array, callback) {
+  let result = [];
+  for (let i = 0; i < array.length; i++) {
+    result.push(callback(array[i], i, array));
+  }
+  return result;
+}
+function customReduce(array, callback, initialValue) {
+  let accumulator = initialValue === undefined ? array[0] : initialValue;
+  for (let i = initialValue === undefined ? 1 : 0; i < array.length; i++) {
+    accumulator = callback(accumulator, array[i], i, array);
+  }
+  return accumulator;
+}
+function customFilter(array, callback) {
+  let result = [];
+  for (let i = 0; i < array.length; i++) {
+    if (callback(array[i], i, array)) {
+      result.push(array[i]);
+    }
+  }
+  return result;
+}
+function customFlatMap(array, callback) {
+  let result = [];
+  for (let i = 0; i < array.length; i++) {
+    let mapped = callback(array[i], i, array);
+    if (Array.isArray(mapped)) {
+      result = result.concat(mapped);
+    } else {
+      result.push(mapped);
+    }
+  }
+  return result;
+}
+
+
+let numbers = [1, 2, 3, 4, 5];
+console.log(customMap(numbers, (x) => x * 2)); 
+console.log(customReduce(numbers, (acc, curr) => acc + curr, 0)); 
+console.log(customFilter(numbers, (x) => x % 2 === 0)); 
+let nestedArrays = [[1, 2], [3, 4], [5, 6]];
+console.log(customFlatMap(nestedArrays, (arr) => arr)); 
+
+----------------------------------------------
+3
+function calculate(num, callback) {
+  let result = callback(num);
+  console.log(`The result is: ${result}`);
+}
+function square(x) {
+  return x * x;
+}
+calculate(5, square); 
+
+-------------------------------------
+4 
+function reverseString(str) {
+  return str.split('').reverse().join('');
+}
+let originalString = "hello";
+let reversedString = reverseString(originalString);
+
+console.log(`Original String: ${originalString}`); 
+console.log(`Reversed String: ${reversedString}`); 
+
+
+
